@@ -1,0 +1,61 @@
+algo.sum
+sol1:(liste1: number[], liste2: number[]): number {
+   let sum: number = 0;
+   for (let i = 0; i < liste1.length; i++) {
+     let isFound: boolean = false;
+     for (let j = 0; j < liste2.length; j++) {
+       if (isFound == false) {
+         if (liste1[i] === liste2[j]) {
+           isFound = true;
+           break;
+         }
+       }
+     }
+     if (isFound == false) {
+       sum = sum + liste1[i];
+     }
+   }
+   for (let i = 0; i < liste2.length; i++) {
+     let isFound: boolean = false;
+     for (let j = 0; j < liste1.length; j++) {
+       if (isFound == false) {
+         if (liste2[i] === liste1[j]) {
+           isFound = true;
+           break;
+         }
+       }
+     }
+     if (isFound == false) {
+       sum = sum + liste2[i];
+     }
+   }
+   return sum;
+ }
+
+
+solution2(liste1: number[], liste2: number[]): number {
+    let sum: number = 0;
+    let collection = new Map();
+    for (let i = 0; i < liste1.length; i++) {
+      if (collection.has(liste1[i])) {
+        collection.set(liste1[i], collection.get(liste1[i]) + 1);
+      } else {
+        collection.set(liste1[i], 1);
+      }
+    }
+    for (let i = 0; i < liste2.length; i++) {
+      if (collection.has(liste2[i])) {
+        collection.set(liste2[i], collection.get(liste2[i]) + 1);
+      } else {
+        collection.set(liste2[i], 1);
+      }
+    }
+
+    for (let [key, value] of collection) {
+      if (value === 1) {
+        sum = sum + key;
+      }
+    }
+
+    return sum;
+  }
